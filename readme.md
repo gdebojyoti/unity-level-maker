@@ -15,6 +15,7 @@ The ultimate "Mario Maker" alternative for non-Switch devices.
 - [ ] Accounts & profiles
 - [ ] Search results
 - [ ] Rating & reviews
+- [ ] Help & guides
 
 **Editor Features**
 
