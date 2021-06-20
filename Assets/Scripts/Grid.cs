@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    GameObject cursor;
     GameObject selection;
     GameObject entitiesFolder;
     Vector3 worldPosition;
@@ -14,7 +13,6 @@ public class Grid : MonoBehaviour
     [SerializeField] int size = 1;
     
     void Start () {
-        cursor = GameObject.Find("Cursor");
         entitiesFolder = new GameObject("Entities");
     }
 
@@ -56,7 +54,7 @@ public class Grid : MonoBehaviour
         xPos = size * Mathf.RoundToInt(worldPosition.x / size);
         yPos = size * Mathf.RoundToInt(worldPosition.y / size);
 
-        // update cursor on screen
+        // return computed position
         return new Vector3(xPos, yPos, 0);
     }
 
