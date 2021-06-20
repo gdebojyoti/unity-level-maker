@@ -1,5 +1,7 @@
 ## Ultimate Level Builder Dx
 
+The ultimate "Mario Maker" alternative for non-Switch devices.
+
 **Overall Features**
 
 - [x] Basic layout editor
