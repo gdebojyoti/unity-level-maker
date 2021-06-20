@@ -3,8 +3,11 @@
 **Overall Features**
 
 - [x] Basic layout editor
+- [ ] Player controller
+- [ ] Enemy AI
 - [ ] Play mode
 - [ ] Advanced editor features
+- [ ] UI 1.0
 - [ ] Save & load levels
 - [ ] Start screen
 - [ ] Accounts & profiles
