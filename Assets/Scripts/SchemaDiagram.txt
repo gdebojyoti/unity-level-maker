@@ -1,0 +1,43 @@
+History -
+  operations // array of `Operation`
+
+
+Operation -
+  uuid
+  timestamp
+  action <Action>
+  entity // final details of the entity
+    type ("block", "enemy")
+    id
+    pos
+      x
+      y
+
+
+Action -
+  type ("insert", "delete", "update")
+  (pos) // final position in case of "update" (i.e., move) operation; null in case of "insert" & "delete"
+    x
+    y
+
+
+Map -
+  entities // array of `Entity`
+  spawnPosition
+    x
+    y
+  limits
+    left
+    right
+    (top)
+    (bottom)
+
+
+Entity -
+  uuid
+  type
+  id
+  pos
+    x
+    y
+  (variantId) // id of alternate color or style
