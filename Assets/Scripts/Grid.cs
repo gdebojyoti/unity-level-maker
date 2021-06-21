@@ -31,7 +31,13 @@ public class Grid : MonoBehaviour
         return "";
     }
 
+    // TODO: check for existing entities at this location; if found, replace them
     public void InsertEntity () {
+        // exit if nothing is selected
+        if (selection == null) {
+            return;
+        }
+
         // instantiate entity
         GameObject entity = Instantiate(selection, _GetNearestPositionOnGrid(), Quaternion.identity);
 
