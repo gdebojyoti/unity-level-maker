@@ -25,7 +25,7 @@ public static class SaveService {
       EntityInfo info = levelData.entities[0];
       Debug.Log("info: " + info.position.x + info.position.y);
     } else {
-      Debug.Log("File not found!!!");
+      Debug.Log("Save file <b><color=#f00>not</color></b> found!");
     }
   }
 }
