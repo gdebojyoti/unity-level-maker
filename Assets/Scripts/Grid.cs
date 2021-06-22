@@ -32,20 +32,26 @@ public class Grid : MonoBehaviour
     }
 
     // TODO: check for existing entities at this location; if found, replace them
-    public void InsertEntity () {
+    public Entity InsertEntity () {
         // exit if nothing is selected
         if (selection == null) {
-            return;
+            return null;
         }
 
+        // get location to instantiate entity at
+        Vector3 location = _GetNearestPositionOnGrid();
+
         // instantiate entity
-        GameObject entity = Instantiate(selection, _GetNearestPositionOnGrid(), Quaternion.identity);
+        GameObject entity = Instantiate(selection, location, Quaternion.identity);
 
         // set parent in Hierarchy View
         entity.transform.SetParent(entitiesFolder.transform, false);
 
         // remove box collider
         Destroy(entity.GetComponent<BoxCollider2D>());
+
+        // generate new entity and return to parent
+        return _GenerateNewEntity(selection, location);
     }
 
     #endregion
@@ -62,6 +68,24 @@ public class Grid : MonoBehaviour
 
         // return computed position
         return new Vector3(xPos, yPos, 0);
+    }
+
+    private Entity _GenerateNewEntity (GameObject selection, Vector3 location) {
+        Entities type = Entities.BLOCK;
+        switch (selection.name) {
+            case "Block":
+                type = Entities.BLOCK;
+                break;
+            case "Enemy":
+                type = Entities.ENEMY;
+                break;
+        }
+        Entity newEntity = new Entity(
+            (Vector2)location,
+            type
+        );
+
+        return newEntity;
     }
 
     #endregion

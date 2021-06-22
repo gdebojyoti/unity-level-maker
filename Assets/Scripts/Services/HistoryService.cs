@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class HistoryService {
+  static Hashtable operations = new Hashtable();
+  static List<string> orderOfOperations = new List<string>();
+  static string currentIndex;
+
+  public static void AddEntity (Entity entity) {
+    // exit if no entity is found
+    if (entity == null) {
+      return;
+    }
+    
+    Debug.Log(entity.uuid);
+    // Debug.Log(entity.type);
+    // Debug.Log(entity.id);
+    Debug.Log(entity.position);
+
+    // check if existing entity exists at given position
+
+    // create Action
+    Action action = new Action(
+      Actions.INSERT
+    );
+
+    Debug.Log(action.type.ToString() + action.position.ToString());
+
+    // create Operation
+    Operation op = new Operation(action, entity);
+    
+    // save to hashtable
+    string key = entity.position.x.ToString() + "|" + entity.position.y.ToString();
+    operations.Add(key, op);
+
+    // add key to orderOfOperations
+    orderOfOperations.Add(key);
+
+    MapService.AddEntity(entity);
+  }
+
+  public static void Undo () {
+    Debug.Log("Undoing..");
+  }
+  public static void Redo () {
+    Debug.Log("Redoing..");
+  }
+  public static void Save () {
+    Debug.Log("Saving to JSON..");
+  }
+  public static void Load () {
+    Debug.Log("Loading from JSON..");
+  }
+}

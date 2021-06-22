@@ -11,6 +11,9 @@ public class Editor : MonoBehaviour
         grid = gameObject.GetComponent<Grid>();
 
         editorList = gameObject.GetComponent<EditorList>();
+
+        // initialize buttons
+        _InitializeButtons();
     }
 
     void Update () {
@@ -27,8 +30,38 @@ public class Editor : MonoBehaviour
             }
             // if clicked on grid, insert object at corresponding position
             if (name == "") {
-                grid.InsertEntity();
+                Entity entity = grid.InsertEntity();
+                HistoryService.AddEntity(entity);
             }
         }
     }
+
+    #region public methods
+
+    public void OnClickButton (string key) {
+        switch (key) {
+            case "save":
+                HistoryService.Save();
+                break;
+            case "load":
+                HistoryService.Load();
+                break;
+            case "undo":
+                HistoryService.Undo();
+                break;
+            case "redo":
+                HistoryService.Redo();
+                break;
+        }
+    }
+
+    #endregion
+
+    #region private methods
+
+    private void _InitializeButtons () {
+        // Debug.Log("random public method inside editor script");
+    }
+
+    #endregion
 }
