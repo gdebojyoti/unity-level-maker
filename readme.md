@@ -6,7 +6,7 @@ The ultimate "Mario Maker" alternative for non-Switch devices.
 
 - [x] Basic layout editor
 - [ ] Player controller
-- [ ] Enemy AI
+- [x] Enemy AI
 - [ ] Play mode
 - [ ] Advanced editor features
 - [ ] UI 1.0

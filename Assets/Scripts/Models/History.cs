@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class History : MonoBehaviour {
+public class History {
   public Operation[] operations;
 }
