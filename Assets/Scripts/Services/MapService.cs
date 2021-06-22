@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public static class MapService {
-  public static List<EntityInfo> entities = new List<EntityInfo>();
+	[SerializeField] public static List<EntityInfo> entities = new List<EntityInfo>();
   public static Vector2 spawnPosition;
 	// TODO: add variables for saving limits of map (left, right, top, bottom)
 
@@ -16,12 +18,13 @@ public static class MapService {
 	}
 	
 	public static void RemoveEntity () {}
-	
-	public static void Save () {
-		Debug.Log("Saving map...");
+
+	public static Level GetMapData () {
+		return new Level(entities, spawnPosition);
 	}
 }
 
+[Serializable]
 public class EntityInfo {
 	public string uuid;
 	public string type;
@@ -35,6 +38,7 @@ public class EntityInfo {
 	}
 }
 
+[Serializable]
 public class PositionInfo {
 	public float x;
 	public float y;

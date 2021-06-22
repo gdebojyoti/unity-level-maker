@@ -13,19 +13,12 @@ public static class HistoryService {
       return;
     }
     
-    Debug.Log(entity.uuid);
-    // Debug.Log(entity.type);
-    // Debug.Log(entity.id);
-    Debug.Log(entity.position);
-
     // check if existing entity exists at given position
 
     // create Action
     Action action = new Action(
       Actions.INSERT
     );
-
-    Debug.Log(action.type.ToString() + action.position.ToString());
 
     // create Operation
     Operation op = new Operation(action, entity);
@@ -47,9 +40,9 @@ public static class HistoryService {
     Debug.Log("Redoing..");
   }
   public static void Save () {
-    Debug.Log("Saving to JSON..");
+    SaveService.SaveLevel();
   }
   public static void Load () {
-    Debug.Log("Loading from JSON..");
+    SaveService.LoadLevel();
   }
 }
