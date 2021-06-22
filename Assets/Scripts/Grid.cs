@@ -18,7 +18,7 @@ public class Grid : MonoBehaviour
 
     #region public methods
 
-    public void updateEditorSelection (GameObject go) {
+    public void UpdateEditorSelection (GameObject go) {
         selection = go;
     }
 

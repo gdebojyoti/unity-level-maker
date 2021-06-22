@@ -25,7 +25,7 @@ public class Editor : MonoBehaviour
                 GameObject go = editorList.FetchEditorObject(name);
 
                 if (go != null) {
-                    grid.updateEditorSelection(go);
+                    grid.UpdateEditorSelection(go);
                 }
             }
             // if clicked on grid, insert object at corresponding position

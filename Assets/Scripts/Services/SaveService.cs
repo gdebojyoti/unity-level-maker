@@ -15,7 +15,7 @@ public static class SaveService {
     File.WriteAllText(path, output);
   }
 
-  public static void LoadLevel () {
+  public static Level LoadLevel () {
     // string abc = "{\"entities\":[{\"uuid\":\"1a47375d-5fe3-48b0-b076-17f706be31ef\",\"type\":\"ENEMY\",\"id\":1,\"position\":{\"x\":4.0,\"y\":3.0}}],\"spawnPosition\":{\"x\":0.0,\"y\":0.0}}";
 
     if (File.Exists(path)) {
@@ -23,10 +23,12 @@ public static class SaveService {
       string fileContents = File.ReadAllText(path);
       Level levelData = JsonUtility.FromJson<Level>(fileContents);
       EntityInfo info = levelData.entities[0];
-      Debug.Log("info: " + info.position.x + info.position.y);
-    } else {
-      Debug.Log("Save file <b><color=#f00>not</color></b> found!");
+
+      return levelData;
     }
+
+    Debug.Log("Save file <b><color=#f00>not</color></b> found!");
+    return null;
   }
 }
 

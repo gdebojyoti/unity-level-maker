@@ -43,6 +43,8 @@ public static class HistoryService {
     SaveService.SaveLevel();
   }
   public static void Load () {
-    SaveService.LoadLevel();
+    Level levelData = SaveService.LoadLevel();
+    // initialize level map
+    MapService.InitializeMapData(levelData);
   }
 }

@@ -22,6 +22,13 @@ public static class MapService {
 	public static Level GetMapData () {
 		return new Level(entities, spawnPosition);
 	}
+
+	public static void InitializeMapData (Level levelData) {
+		entities = levelData.entities;
+		spawnPosition = levelData.spawnPosition;
+
+		// TODO: clear "entities" folder, and re-generate all of its contents from `entities`
+	}
 }
 
 [Serializable]
