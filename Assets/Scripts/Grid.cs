@@ -1,3 +1,5 @@
+// TODO: This is deprecated. Functionalities defined in this file should be moved to UiService (and others)
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

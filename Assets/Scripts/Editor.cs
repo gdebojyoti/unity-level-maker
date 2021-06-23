@@ -6,14 +6,15 @@ public class Editor : MonoBehaviour
 {
     Grid grid;
     EditorList editorList;
+    public ButtonsData buttonsData;
     
     void Start () {
         grid = gameObject.GetComponent<Grid>();
 
         editorList = gameObject.GetComponent<EditorList>();
 
-        // initialize buttons
-        _InitializeButtons();
+        // initialize UI
+        UiService.InitializeLayout(this, buttonsData);
     }
 
     void Update () {
@@ -37,7 +38,6 @@ public class Editor : MonoBehaviour
     }
 
     #region public methods
-
     public void OnClickButton (string key) {
         switch (key) {
             case "save":
@@ -53,14 +53,6 @@ public class Editor : MonoBehaviour
                 HistoryService.Redo();
                 break;
         }
-    }
-
-    #endregion
-
-    #region private methods
-
-    private void _InitializeButtons () {
-        // Debug.Log("random public method inside editor script");
     }
 
     #endregion
