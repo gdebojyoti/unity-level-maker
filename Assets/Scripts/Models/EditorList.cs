@@ -8,7 +8,7 @@ public class EditorList : MonoBehaviour {
 
   public GameObject FetchEditorObject (string name) {
     for (int i = 0; i < entities.Count; i++) {
-      if (entities[i].name == name) {
+      if (entities[i].name == name.ToUpper()) {
         return entities[i].entity;
       }
     }

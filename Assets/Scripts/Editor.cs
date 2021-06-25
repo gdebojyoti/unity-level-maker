@@ -8,9 +8,11 @@ public class Editor : MonoBehaviour
     GameObject selection;
     
     void Start () {
+        EditorList el = gameObject.GetComponent<EditorList>();
+        
         // initialize services
-        UiService.Initialize(this, buttonsData, gameObject.GetComponent<EditorList>());
-        MapService.Initialize();
+        UiService.Initialize(this, buttonsData, el);
+        MapService.Initialize(el);
     }
 
     void Update () {
@@ -50,7 +52,7 @@ public class Editor : MonoBehaviour
             return;
         }
 
-        Entity entity = MapService.InsertEntity(selection);
+        Entity entity = MapService.AddEntity(selection);
         if (entity != null) {
             HistoryService.AddEntity(entity);
         }

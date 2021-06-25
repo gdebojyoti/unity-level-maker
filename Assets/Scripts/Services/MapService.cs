@@ -10,41 +10,48 @@ public static class MapService {
   public static Vector2 spawnPosition;
 	static int size = 1;
 	static GameObject entitiesFolder;
+	static EditorList editorList;
 
 	#region static methods
 		
-		public static void Initialize () {
+		public static void Initialize (EditorList el) {
 			entitiesFolder = new GameObject("Entities");
+			editorList = el;
 		}
 		
-		// TODO: clear "entities" folder, and re-generate all of its contents from `entities`
 		public static void InitializeMapData (Level levelData) {
-			entities = levelData.entities;
 			spawnPosition = levelData.spawnPosition;
+
+			// clear folder
+			foreach (Transform child in entitiesFolder.transform) {
+				GameObject.Destroy(child.gameObject);
+			}
+
+			// re-initialize entities list
+			entities = new List<EntityInfo>();
+
+			foreach (EntityInfo info in levelData.entities) {
+				GameObject go = editorList.FetchEditorObject(info.type);
+				Vector3 position = new Vector3(info.position.x, info.position.y);
+				
+				Entity newEntity = _AddNewEntityInScene(go, position);
+				entities.Add(info);
+			}
 		}
 
-		// TODO: check for existing entities at this location; if found, replace them
-		public static Entity InsertEntity (GameObject go) {
+		
+		public static Entity AddEntity (GameObject go) {
 			// get location to instantiate entity at
 			Vector3 location = _GetNearestPositionOnGrid();
 
 			// exit if entity already exists at this location
 			if (_CheckIfEntityExists(location)) {
 				Debug.Log("Already exists");
+				// TODO: replace entities instead of exiting
 				return null;
 			}
 
-			// instantiate entity
-			GameObject entity = GameObject.Instantiate(go, location, Quaternion.identity);
-
-			// set parent in Hierarchy View
-			entity.transform.SetParent(entitiesFolder.transform, false);
-
-			// remove box collider
-			GameObject.Destroy(entity.GetComponent<BoxCollider2D>());
-
-			// generate new entity and return to parent
-			Entity newEntity = _GenerateNewEntity(go, location);
+			Entity newEntity = _AddNewEntityInScene(go, location);
 
 			// convert entity model to basic data structure & add it to list
 			EntityInfo entityInfo = new EntityInfo(newEntity);
@@ -84,6 +91,24 @@ public static class MapService {
 			return false;
 		}
 
+		// generate new `Entity`; add it under "Entities" folder
+		static Entity _AddNewEntityInScene (GameObject go, Vector3 location) {
+			// instantiate entity
+			GameObject entity = GameObject.Instantiate(go, location, Quaternion.identity);
+
+			// set parent in Hierarchy View
+			entity.transform.SetParent(entitiesFolder.transform, false);
+
+			// remove box collider
+			GameObject.Destroy(entity.GetComponent<BoxCollider2D>());
+
+			// generate new entity
+			Entity newEntity = _GenerateNewEntity(go, location);
+
+			return newEntity;
+		}
+
+		// create a new `Entity` from parameters
     static Entity _GenerateNewEntity (GameObject selection, Vector3 location) {
 			Entities type = Entities.BLOCK;
 			switch (selection.name) {
