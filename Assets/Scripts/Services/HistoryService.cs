@@ -29,22 +29,5 @@ public static class HistoryService {
 
     // add key to orderOfOperations
     orderOfOperations.Add(key);
-
-    MapService.AddEntity(entity);
-  }
-
-  public static void Undo () {
-    Debug.Log("Undoing..");
-  }
-  public static void Redo () {
-    Debug.Log("Redoing..");
-  }
-  public static void Save () {
-    SaveService.SaveLevel();
-  }
-  public static void Load () {
-    Level levelData = SaveService.LoadLevel();
-    // initialize level map
-    MapService.InitializeMapData(levelData);
   }
 }

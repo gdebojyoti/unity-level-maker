@@ -2,66 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Editor : MonoBehaviour
-{
-    Grid grid;
-    EditorList editorList;
+public class Editor : MonoBehaviour {
+    public ButtonsData buttonsData;
+    GameObject selection;
     
     void Start () {
-        grid = gameObject.GetComponent<Grid>();
-
-        editorList = gameObject.GetComponent<EditorList>();
-
-        // initialize buttons
-        _InitializeButtons();
+        EditorList el = gameObject.GetComponent<EditorList>();
+        
+        // initialize services
+        UiService.Initialize(this, buttonsData, el);
+        MapService.Initialize(el);
     }
 
     void Update () {
         if (Input.GetMouseButtonDown(0)) {
-            string name = grid.GetClickedObject();
-
-            // if clicked on editor, set cursor as corresponding object
-            if (name != "") {
-                GameObject go = editorList.FetchEditorObject(name);
-
-                if (go != null) {
-                    grid.UpdateEditorSelection(go);
-                }
-            }
-            // if clicked on grid, insert object at corresponding position
-            if (name == "") {
-                Entity entity = grid.InsertEntity();
-                HistoryService.AddEntity(entity);
-            }
+            UiService.Check();
         }
     }
 
-    #region public methods
-
+  #region public methods
     public void OnClickButton (string key) {
-        switch (key) {
-            case "save":
-                HistoryService.Save();
-                break;
-            case "load":
-                HistoryService.Load();
-                break;
-            case "undo":
-                HistoryService.Undo();
-                break;
-            case "redo":
-                HistoryService.Redo();
-                break;
+      switch (key) {
+        case "save": {
+          Level levelData = MapService.GetMapData();
+          SaveService.SaveLevel(levelData);
+          break;
         }
+        case "load": {
+          Level levelData = SaveService.LoadLevel();
+          MapService.InitializeMapData(levelData);
+          // TODO: update HistoryService
+          Debug.Log(JsonUtility.ToJson(levelData, true));
+          break;
+        }
+        case "undo":
+          break;
+        case "redo":
+          break;
+      }
     }
 
-    #endregion
-
-    #region private methods
-
-    private void _InitializeButtons () {
-        // Debug.Log("random public method inside editor script");
+    public void UpdateSelection (GameObject go) {
+      selection = go;
     }
 
-    #endregion
+    public void Draw () {
+      // exit if nothing is selected
+      if (selection == null) {
+        return;
+      }
+
+      Entity entity = MapService.AddEntity(selection);
+      if (entity != null) {
+        HistoryService.AddEntity(entity);
+      }
+    }
+
+  #endregion
 }

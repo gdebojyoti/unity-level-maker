@@ -6,9 +6,7 @@ using UnityEngine;
 public static class SaveService {
   static string path = Application.persistentDataPath + "/level.json";
 
-  public static void SaveLevel () {
-    Level levelData = MapService.GetMapData();
-
+  public static void SaveLevel (Level levelData) {
     var output = JsonUtility.ToJson(levelData, true);
     Debug.Log(output);
 
