@@ -29,7 +29,5 @@ public static class HistoryService {
 
     // add key to orderOfOperations
     orderOfOperations.Add(key);
-
-    MapService.AddEntity(entity);
   }
 }

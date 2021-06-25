@@ -52,7 +52,6 @@ public static class UiService {
     static void _InitializeListeners () {
       for (int i = 0; i < buttonsData.buttons.Length; i++) {
         ButtonData data = buttonsData.buttons[i];
-        Debug.Log(data.id + " " + data.key);
 
         Button button = GameObject.Find(data.id).GetComponent<Button>();
         button.onClick.AddListener(() => {

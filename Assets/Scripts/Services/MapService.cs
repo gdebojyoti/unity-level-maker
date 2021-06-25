@@ -28,6 +28,12 @@ public static class MapService {
 			// get location to instantiate entity at
 			Vector3 location = _GetNearestPositionOnGrid();
 
+			// exit if entity already exists at this location
+			if (_CheckIfEntityExists(location)) {
+				Debug.Log("Already exists");
+				return null;
+			}
+
 			// instantiate entity
 			GameObject entity = GameObject.Instantiate(go, location, Quaternion.identity);
 
@@ -38,15 +44,13 @@ public static class MapService {
 			GameObject.Destroy(entity.GetComponent<BoxCollider2D>());
 
 			// generate new entity and return to parent
-			return _GenerateNewEntity(go, location);
-		}
+			Entity newEntity = _GenerateNewEntity(go, location);
 
-		public static void AddEntity (Entity entity) {
-			// convert entity model to basic data structure
-			EntityInfo entityInfo = new EntityInfo(entity);
-
-			// add above info to list
+			// convert entity model to basic data structure & add it to list
+			EntityInfo entityInfo = new EntityInfo(newEntity);
 			entities.Add(entityInfo);
+
+			return newEntity;
 		}
 		
 		public static void RemoveEntity () {}
@@ -70,6 +74,15 @@ public static class MapService {
 			// return computed position
 			return new Vector3(xPos, yPos, 0);
     }
+
+		static bool _CheckIfEntityExists (Vector3 location) {
+			foreach (EntityInfo info in entities) {
+				if (location.x == info.position.x && location.y == info.position.y) {
+					return true;
+				}
+			}
+			return false;
+		}
 
     static Entity _GenerateNewEntity (GameObject selection, Vector3 location) {
 			Entities type = Entities.BLOCK;

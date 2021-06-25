@@ -22,14 +22,17 @@ public class Editor : MonoBehaviour
     #region public methods
     public void OnClickButton (string key) {
         switch (key) {
-            case "save":
-                SaveService.SaveLevel();
+            case "save": {
+                Level levelData = MapService.GetMapData();
+                SaveService.SaveLevel(levelData);
                 break;
-            case "load":
+            }
+            case "load": {
                 Level levelData = SaveService.LoadLevel();
                 MapService.InitializeMapData(levelData);
                 Debug.Log(JsonUtility.ToJson(levelData, true));
                 break;
+            }
             case "undo":
                 break;
             case "redo":
@@ -48,7 +51,9 @@ public class Editor : MonoBehaviour
         }
 
         Entity entity = MapService.InsertEntity(selection);
-        HistoryService.AddEntity(entity);
+        if (entity != null) {
+            HistoryService.AddEntity(entity);
+        }
     }
 
     #endregion
