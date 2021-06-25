@@ -5,12 +5,12 @@ The ultimate "Mario Maker" alternative for non-Switch devices.
 **Overall Features**
 
 - [x] Basic layout editor
-- [ ] Player controller
 - [x] Enemy AI
+- [x] Save & load levels
+- [ ] Player controller
 - [ ] Play mode
 - [ ] Advanced editor features
 - [ ] UI 1.0
-- [ ] Save & load levels
 - [ ] Start screen
 - [ ] Accounts & profiles
 - [ ] Search results
