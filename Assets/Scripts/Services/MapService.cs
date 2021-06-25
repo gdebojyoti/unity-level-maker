@@ -5,30 +5,91 @@ using UnityEngine;
 
 [Serializable]
 public static class MapService {
+	// TODO: add variables for saving limits of map (left, right, top, bottom)
 	[SerializeField] public static List<EntityInfo> entities = new List<EntityInfo>();
   public static Vector2 spawnPosition;
-	// TODO: add variables for saving limits of map (left, right, top, bottom)
+	static int size = 1;
+	static GameObject entitiesFolder;
 
-	public static void AddEntity (Entity entity) {
-		// convert entity model to basic data structure
-		EntityInfo entityInfo = new EntityInfo(entity);
-
-		// add above info to list
-		entities.Add(entityInfo);
-	}
-	
-	public static void RemoveEntity () {}
-
-	public static Level GetMapData () {
-		return new Level(entities, spawnPosition);
-	}
-
-	public static void InitializeMapData (Level levelData) {
-		entities = levelData.entities;
-		spawnPosition = levelData.spawnPosition;
-
+	#region static methods
+		
+		public static void Initialize () {
+			entitiesFolder = new GameObject("Entities");
+		}
+		
 		// TODO: clear "entities" folder, and re-generate all of its contents from `entities`
-	}
+		public static void InitializeMapData (Level levelData) {
+			entities = levelData.entities;
+			spawnPosition = levelData.spawnPosition;
+		}
+
+		// TODO: check for existing entities at this location; if found, replace them
+		public static Entity InsertEntity (GameObject go) {
+			// get location to instantiate entity at
+			Vector3 location = _GetNearestPositionOnGrid();
+
+			// instantiate entity
+			GameObject entity = GameObject.Instantiate(go, location, Quaternion.identity);
+
+			// set parent in Hierarchy View
+			entity.transform.SetParent(entitiesFolder.transform, false);
+
+			// remove box collider
+			GameObject.Destroy(entity.GetComponent<BoxCollider2D>());
+
+			// generate new entity and return to parent
+			return _GenerateNewEntity(go, location);
+		}
+
+		public static void AddEntity (Entity entity) {
+			// convert entity model to basic data structure
+			EntityInfo entityInfo = new EntityInfo(entity);
+
+			// add above info to list
+			entities.Add(entityInfo);
+		}
+		
+		public static void RemoveEntity () {}
+
+		public static Level GetMapData () {
+			return new Level(entities, spawnPosition);
+		}
+
+	#endregion
+
+	#region private methods
+
+		static Vector3 _GetNearestPositionOnGrid () {
+			// determine mouse position on screen
+			Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+			// get nearest point to mouse pointer
+			float xPos = size * Mathf.RoundToInt(worldPosition.x / size);
+			float yPos = size * Mathf.RoundToInt(worldPosition.y / size);
+
+			// return computed position
+			return new Vector3(xPos, yPos, 0);
+    }
+
+    static Entity _GenerateNewEntity (GameObject selection, Vector3 location) {
+			Entities type = Entities.BLOCK;
+			switch (selection.name) {
+				case "Block":
+					type = Entities.BLOCK;
+					break;
+				case "Enemy":
+					type = Entities.ENEMY;
+					break;
+			}
+			Entity newEntity = new Entity(
+				(Vector2)location,
+				type
+			);
+
+			return newEntity;
+    }
+	
+	#endregion
 }
 
 [Serializable]

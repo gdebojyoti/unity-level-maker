@@ -311,7 +311,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420034}
   - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
@@ -415,19 +414,6 @@ MonoBehaviour:
     entity: {fileID: 7871410312202914591, guid: a8b61a8bfa62b472683f0fc312854d31, type: 3}
   - name: Block
     entity: {fileID: 5712430784821702326, guid: d9356ab93ff6d40f7b819e74a6aa30e2, type: 3}
---- !u!114 &519420034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8648c3c4759b34ce4b3b10c50714ccc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 1
 --- !u!1 &970970168
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065470871}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21111465, y: -3.300385, z: 0.7997115}
+  m_LocalPosition: {x: -0.2, y: -3.3, z: 0}
   m_LocalScale: {x: 10.663, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1023483856}
@@ -892,7 +878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367134093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6, y: -2.08, z: 0.7997115}
+  m_LocalPosition: {x: -3.6, y: -2.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1023483856}
@@ -1360,7 +1346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632315412179009850, guid: 8ffea1ef4bae54a519b92c7e32fe20e8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.7997115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7632315412179009850, guid: 8ffea1ef4bae54a519b92c7e32fe20e8, type: 3}
       propertyPath: m_LocalRotation.w

@@ -13,6 +13,7 @@ public class Editor : MonoBehaviour
 
         // initialize UI
         UiService.Initialize(this, buttonsData, gameObject.GetComponent<EditorList>());
+        MapService.Initialize();
     }
 
     void Update () {
@@ -49,7 +50,7 @@ public class Editor : MonoBehaviour
             return;
         }
 
-        Entity entity = grid.InsertEntity(selection);
+        Entity entity = MapService.InsertEntity(selection);
         HistoryService.AddEntity(entity);
     }
 
