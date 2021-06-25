@@ -5,35 +5,19 @@ using UnityEngine;
 public class Editor : MonoBehaviour
 {
     Grid grid;
-    EditorList editorList;
     public ButtonsData buttonsData;
+    GameObject selection;
     
     void Start () {
         grid = gameObject.GetComponent<Grid>();
 
-        editorList = gameObject.GetComponent<EditorList>();
-
         // initialize UI
-        UiService.InitializeLayout(this, buttonsData);
+        UiService.Initialize(this, buttonsData, gameObject.GetComponent<EditorList>());
     }
 
     void Update () {
         if (Input.GetMouseButtonDown(0)) {
-            string name = grid.GetClickedObject();
-
-            // if clicked on editor, set cursor as corresponding object
-            if (name != "") {
-                GameObject go = editorList.FetchEditorObject(name);
-
-                if (go != null) {
-                    grid.UpdateEditorSelection(go);
-                }
-            }
-            // if clicked on grid, insert object at corresponding position
-            if (name == "") {
-                Entity entity = grid.InsertEntity();
-                HistoryService.AddEntity(entity);
-            }
+            UiService.Check();
         }
     }
 
@@ -53,6 +37,20 @@ public class Editor : MonoBehaviour
                 HistoryService.Redo();
                 break;
         }
+    }
+
+    public void UpdateSelection (GameObject go) {
+        selection = go;
+    }
+
+    public void Draw () {
+        // exit if nothing is selected
+        if (selection == null) {
+            return;
+        }
+
+        Entity entity = grid.InsertEntity(selection);
+        HistoryService.AddEntity(entity);
     }
 
     #endregion

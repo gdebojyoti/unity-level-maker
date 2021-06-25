@@ -33,12 +33,8 @@ public static class HistoryService {
     MapService.AddEntity(entity);
   }
 
-  public static void Undo () {
-    Debug.Log("Undoing..");
-  }
-  public static void Redo () {
-    Debug.Log("Redoing..");
-  }
+  public static void Undo () {}
+  public static void Redo () {}
   public static void Save () {
     SaveService.SaveLevel();
   }

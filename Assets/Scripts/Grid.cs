@@ -3,10 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Grid : MonoBehaviour
 {
-    GameObject selection;
     GameObject entitiesFolder;
     Vector3 worldPosition;
     int xPos;
@@ -20,26 +20,8 @@ public class Grid : MonoBehaviour
 
     #region public methods
 
-    public void UpdateEditorSelection (GameObject go) {
-        selection = go;
-    }
-
-    public string GetClickedObject () {
-        // if mouse pointer is hovering over an object with collider, return true; else return false
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.collider != null) {
-            return hit.collider.name;
-        }
-        return "";
-    }
-
     // TODO: check for existing entities at this location; if found, replace them
-    public Entity InsertEntity () {
-        // exit if nothing is selected
-        if (selection == null) {
-            return null;
-        }
-
+    public Entity InsertEntity (GameObject selection) {
         // get location to instantiate entity at
         Vector3 location = _GetNearestPositionOnGrid();
 
