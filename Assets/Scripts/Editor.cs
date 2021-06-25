@@ -21,42 +21,43 @@ public class Editor : MonoBehaviour
         }
     }
 
-    #region public methods
+  #region public methods
     public void OnClickButton (string key) {
-        switch (key) {
-            case "save": {
-                Level levelData = MapService.GetMapData();
-                SaveService.SaveLevel(levelData);
-                break;
-            }
-            case "load": {
-                Level levelData = SaveService.LoadLevel();
-                MapService.InitializeMapData(levelData);
-                Debug.Log(JsonUtility.ToJson(levelData, true));
-                break;
-            }
-            case "undo":
-                break;
-            case "redo":
-                break;
+      switch (key) {
+        case "save": {
+          Level levelData = MapService.GetMapData();
+          SaveService.SaveLevel(levelData);
+          break;
         }
+        case "load": {
+          Level levelData = SaveService.LoadLevel();
+          MapService.InitializeMapData(levelData);
+          // TODO: update HistoryService
+          Debug.Log(JsonUtility.ToJson(levelData, true));
+          break;
+        }
+        case "undo":
+          break;
+        case "redo":
+          break;
+      }
     }
 
     public void UpdateSelection (GameObject go) {
-        selection = go;
+      selection = go;
     }
 
     public void Draw () {
-        // exit if nothing is selected
-        if (selection == null) {
-            return;
-        }
+      // exit if nothing is selected
+      if (selection == null) {
+        return;
+      }
 
-        Entity entity = MapService.AddEntity(selection);
-        if (entity != null) {
-            HistoryService.AddEntity(entity);
-        }
+      Entity entity = MapService.AddEntity(selection);
+      if (entity != null) {
+        HistoryService.AddEntity(entity);
+      }
     }
 
-    #endregion
+  #endregion
 }
