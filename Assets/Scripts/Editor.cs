@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Editor : MonoBehaviour
 {
-    Grid grid;
     public ButtonsData buttonsData;
     GameObject selection;
     
     void Start () {
-        grid = gameObject.GetComponent<Grid>();
-
-        // initialize UI
+        // initialize services
         UiService.Initialize(this, buttonsData, gameObject.GetComponent<EditorList>());
         MapService.Initialize();
     }
