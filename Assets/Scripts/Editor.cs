@@ -25,16 +25,16 @@ public class Editor : MonoBehaviour
     public void OnClickButton (string key) {
         switch (key) {
             case "save":
-                HistoryService.Save();
+                SaveService.SaveLevel();
                 break;
             case "load":
-                HistoryService.Load();
+                Level levelData = SaveService.LoadLevel();
+                MapService.InitializeMapData(levelData);
+                Debug.Log(JsonUtility.ToJson(levelData, true));
                 break;
             case "undo":
-                HistoryService.Undo();
                 break;
             case "redo":
-                HistoryService.Redo();
                 break;
         }
     }

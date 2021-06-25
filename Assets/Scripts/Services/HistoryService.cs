@@ -32,15 +32,4 @@ public static class HistoryService {
 
     MapService.AddEntity(entity);
   }
-
-  public static void Undo () {}
-  public static void Redo () {}
-  public static void Save () {
-    SaveService.SaveLevel();
-  }
-  public static void Load () {
-    Level levelData = SaveService.LoadLevel();
-    // initialize level map
-    MapService.InitializeMapData(levelData);
-  }
 }
