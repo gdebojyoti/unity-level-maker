@@ -12,13 +12,12 @@ The ultimate "Mario Maker" alternative for non-Switch devices.
 - [ ] Advanced editor features
 - [ ] UI 1.0
 - [ ] Start screen
-- [ ] Accounts & profiles
+- [ ] Accounts & profiles (offline & online)
+- [ ] Online sync
 - [ ] Search results
 - [ ] Rating & reviews
-- [ ] Help & guides
-- [ ] Online sync
-- [ ] Search for games
 - [ ] Leaderboards
+- [ ] Help & guides
 
 **Editor Features**
 
