@@ -12,3 +12,7 @@ Temp
 *.tmp
 *.user
 *.userprefs
+
+# temp
+GUIPackCartoon
+GUIPackCartoon.meta
